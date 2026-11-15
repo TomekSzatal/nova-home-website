@@ -1,8 +1,17 @@
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
+import { RouterLink } from "vue-router";
 
 const isMenuOpen = ref(false);
+
+const navigation = [
+  { label: "Strona główna", path: "/" },
+  { label: "Usługi", path: "/uslugi" },
+  { label: "O nas", path: "/o-nas" },
+  { label: "Realizacje", path: "/realizacje" },
+  { label: "Kontakt", path: "/kontakt" },
+];
 
 function closeMenu() {
   isMenuOpen.value = false;
@@ -11,9 +20,9 @@ function closeMenu() {
 
 <template>
   <header class="navbar">
-    <a href="#home" class="logo" @click="closeMenu">
+    <RouterLink to="/" class="logo" @click="closeMenu">
       NOVA<span>HOME</span>
-    </a>
+    </RouterLink>
 
     <nav
       id="main-navigation"
@@ -21,24 +30,33 @@ function closeMenu() {
       :class="{ 'nav-open': isMenuOpen }"
       aria-label="Nawigacja główna"
     >
-      <a href="#home" @click="closeMenu">Strona główna</a>
-      <a href="#services" @click="closeMenu">Usługi</a>
-      <a href="#about" @click="closeMenu">O nas</a>
-      <a href="#projects" @click="closeMenu">Realizacje</a>
-      <a href="#contact" @click="closeMenu">Kontakt</a>
+      <RouterLink
+        v-for="item in navigation"
+        :key="item.path"
+        :to="item.path"
+        active-class="active-link"
+        exact-active-class="active-link"
+        @click="closeMenu"
+      >
+        {{ item.label }}
+      </RouterLink>
 
-      <a
-        href="#contact"
+      <RouterLink
+        to="/kontakt"
         class="mobile-contact"
         @click="closeMenu"
       >
         Darmowa wycena
-      </a>
+      </RouterLink>
     </nav>
 
-    <a href="#contact" class="nav-button">
+    <RouterLink
+      to="/kontakt"
+      class="nav-button"
+      @click="closeMenu"
+    >
       Darmowa wycena
-    </a>
+    </RouterLink>
 
     <button
       class="menu-toggle"
@@ -91,6 +109,7 @@ function closeMenu() {
 }
 
 .nav-links a {
+  position: relative;
   color: #444444;
   font-size: 18px;
   font-weight: 500;
@@ -98,8 +117,19 @@ function closeMenu() {
   transition: color 0.2s ease;
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a.active-link {
   color: #b58a55;
+}
+
+.nav-links a.active-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 2px;
+  background: #b58a55;
 }
 
 .nav-button {
@@ -179,7 +209,9 @@ function closeMenu() {
     height: 3px;
     border-radius: 3px;
     background: #252525;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease;
   }
 
   .menu-toggle span:first-child.active {
@@ -217,6 +249,10 @@ function closeMenu() {
     padding: 15px 0;
     border-bottom: 1px solid #eeeeee;
     font-size: 17px;
+  }
+
+  .nav-links a.active-link::after {
+    display: none;
   }
 
   .nav-links .mobile-contact {

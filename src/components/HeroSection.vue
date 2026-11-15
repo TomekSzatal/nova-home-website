@@ -20,29 +20,29 @@
       </p>
 
       <div class="hero-actions">
-        <a href="#contact" class="primary-button">
+        <RouterLink to="/kontakt" class="primary-button">
           Bezpłatna wycena
-        </a>
+        </RouterLink>
 
-        <a href="#projects" class="secondary-button">
+        <RouterLink to="/realizacje" class="secondary-button">
           Zobacz realizacje →
-        </a>
+        </RouterLink>
       </div>
 
       <div class="hero-stats">
         <div>
-          <strong>10+</strong>
-          <span>Lat doświadczenia</span>
+          <strong>01</strong>
+          <span>Nowoczesny design</span>
         </div>
 
         <div>
-          <strong>150+</strong>
-          <span>Zrealizowanych projektów</span>
+          <strong>04</strong>
+          <span>Przykładowe usługi</span>
         </div>
 
         <div>
           <strong>100%</strong>
-          <span>Zaangażowania</span>
+          <span>Projekt demonstracyjny</span>
         </div>
       </div>
     </div>
@@ -160,5 +160,61 @@
 .hero-stats span {
   color: #dddddd;
   font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 600px;
+    padding: 90px 6%;
+  }
+
+  .hero h1 {
+    font-size: clamp(38px, 7vw, 54px);
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .hero-stats {
+    gap: 25px;
+    margin-top: 45px;
+  }
+
+  .hero-stats strong {
+    font-size: 26px;
+  }
+
+  .hero-stats span {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 85px 6% 65px;
+  }
+
+  .hero h1 {
+    font-size: 38px;
+    letter-spacing: -1px;
+  }
+
+  .hero-actions {
+    gap: 18px;
+  }
+
+  .primary-button {
+    padding: 15px 22px;
+    font-size: 14px;
+  }
+
+  .secondary-button {
+    font-size: 14px;
+  }
+
+  .hero-stats {
+    gap: 20px;
+  }
 }
 </style>

@@ -1,53 +1,116 @@
 
+<script setup lang="ts">
+import { RouterLink } from "vue-router";
+
+const year = new Date().getFullYear();
+
+const navigation = [
+  { label: "Strona główna", path: "/" },
+  { label: "O nas", path: "/o-nas" },
+  { label: "Usługi", path: "/uslugi" },
+  { label: "Realizacje", path: "/realizacje" },
+  { label: "Kontakt", path: "/kontakt" },
+];
+
+const services = [
+  { label: "Remonty mieszkań", path: "/uslugi" },
+  { label: "Wykończenia wnętrz", path: "/uslugi" },
+  { label: "Łazienki i kuchnie", path: "/uslugi" },
+  { label: "Prace wykończeniowe", path: "/uslugi" },
+];
+</script>
+
 <template>
   <footer class="footer">
     <div class="footer-main">
+      <!-- MARKA -->
       <div class="footer-brand">
-        <a href="#home" class="logo">
+        <RouterLink to="/" class="logo">
           NOVA<span>HOME</span>
-        </a>
+        </RouterLink>
 
         <p>
-          Tworzymy przestrzenie, do których
-          chce się wracać. Kompleksowe remonty
-          i wykończenia wnętrz.
+          Przestrzenie, do których chce się wracać.
+          Nowoczesna koncepcja marki remontowo-wykończeniowej,
+          łącząca estetykę z funkcjonalnością.
         </p>
 
-        <div class="social-links">
-          <a href="#" aria-label="Facebook">f</a>
-          <a href="#" aria-label="Instagram">ig</a>
+        <div class="demo-label">
+          PROJEKT DEMONSTRACYJNY
         </div>
       </div>
 
+      <!-- NAWIGACJA -->
       <div class="footer-column">
         <h3>Nawigacja</h3>
-        <a href="#home">Strona główna</a>
-        <a href="#about">O nas</a>
-        <a href="#services">Usługi</a>
-        <a href="#projects">Realizacje</a>
-        <a href="#contact">Kontakt</a>
+
+        <RouterLink
+          v-for="item in navigation"
+          :key="item.path"
+          :to="item.path"
+        >
+          {{ item.label }}
+        </RouterLink>
       </div>
 
+      <!-- USŁUGI -->
       <div class="footer-column">
         <h3>Nasze usługi</h3>
-        <a href="#services">Remonty mieszkań</a>
-        <a href="#services">Wykończenia wnętrz</a>
-        <a href="#services">Łazienki i kuchnie</a>
-        <a href="#services">Prace wykończeniowe</a>
+
+        <RouterLink
+          v-for="service in services"
+          :key="service.label"
+          :to="service.path"
+        >
+          {{ service.label }}
+        </RouterLink>
       </div>
 
+      <!-- KONTAKT -->
       <div class="footer-column">
-        <h3>Kontakt</h3>
-        <span>+48 000 000 000</span>
-        <span>kontakt@novahome.pl</span>
-        <span>Polska</span>
+        <h3>Informacje</h3>
+
+        <p class="info-text">
+          NOVA HOME to fikcyjna marka stworzona przez
+          Tovexa Studio jako projekt demonstracyjny.
+          Przedstawione usługi, realizacje i informacje
+          o firmie mają charakter przykładowy.
+        </p>
+
+        <RouterLink to="/kontakt" class="contact-link">
+          Formularz kontaktowy
+        </RouterLink>
+
+        <a
+          href="https://tovexastudio.netlify.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="studio-link"
+        >
+          Projekt: Tovexa Studio ↗
+        </a>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <p>© {{ new Date().getFullYear() }} NOVA HOME. Wszelkie prawa zastrzeżone.</p>
+      <p>
+        © {{ year }} NOVA HOME.
+        Projekt demonstracyjny — Tovexa Studio.
+      </p>
 
-      <a href="#">Polityka prywatności</a>
+      <div class="footer-bottom-links">
+        <RouterLink to="/kontakt">
+          Kontakt
+        </RouterLink>
+
+        <a
+          href="https://tovexastudio.netlify.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Tovexa Studio
+        </a>
+      </div>
     </div>
   </footer>
 </template>
@@ -86,53 +149,58 @@
   line-height: 1.8;
 }
 
-.social-links {
-  display: flex;
-  gap: 12px;
-}
-
-.social-links a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border: 1px solid #444444;
-  color: #ffffff;
-  font-size: 13px;
-  text-decoration: none;
-  transition: background 0.2s ease;
-}
-
-.social-links a:hover {
-  background: #b58a55;
+.demo-label {
+  display: inline-block;
+  padding: 9px 12px;
+  border: 1px solid #6c5941;
+  color: #d6ad79;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
 }
 
 .footer-column {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 17px;
 }
 
 .footer-column h3 {
-  margin-bottom: 10px;
+  margin: 0 0 10px;
+  color: #ffffff;
   font-size: 16px;
 }
 
 .footer-column a,
-.footer-column span {
+.footer-column .info-text {
   color: #999999;
   font-size: 13px;
+  line-height: 1.7;
   text-decoration: none;
+}
+
+.footer-column .info-text {
+  margin: 0;
 }
 
 .footer-column a:hover {
   color: #d6ad79;
 }
 
+.footer-column .contact-link {
+  color: #d6ad79;
+}
+
+.footer-column .studio-link {
+  margin-top: 5px;
+  color: #ffffff;
+}
+
 .footer-bottom {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 20px;
   padding-top: 25px;
   border-top: 1px solid #383838;
@@ -140,56 +208,54 @@
 
 .footer-bottom p,
 .footer-bottom a {
+  margin: 0;
   color: #888888;
   font-size: 12px;
+  line-height: 1.7;
   text-decoration: none;
 }
 
-@media (max-width: 900px) {
+.footer-bottom a:hover {
+  color: #d6ad79;
+}
+
+.footer-bottom-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+/* TABLET */
+
+@media (max-width: 1100px) {
   .footer-main {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 45px;
   }
 }
 
-@media (max-width: 550px) {
-  .footer {
-    padding: 60px 6% 25px;
-  }
+/* MOBILE */
 
-  .footer-main {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .footer-bottom {
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .footer {
     padding: 65px 6% 25px;
   }
 
   .footer-main {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 35px;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-bottom: 45px;
   }
 
   .footer-column a,
-  .footer-column span {
+  .footer-column .info-text {
     font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  .footer-main {
-    grid-template-columns: 1fr;
   }
 
   .footer-bottom {
     flex-direction: column;
-    gap: 12px;
+    align-items: flex-start;
+    gap: 15px;
   }
 }
 </style>
